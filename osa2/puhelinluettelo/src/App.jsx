@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import personService from './services/persons'
 
 //Filter section
@@ -97,6 +96,14 @@ const App = () => {
             setMessage(null)
             setMsgType(null)
           },1000)
+          }).catch(error => {
+            console.log(error.response.data)
+            setMsgType('error')
+            setMessage(JSON.stringify(error.response.data))
+            setTimeout(() => {
+              setMessage(null)
+              setMsgType(null)
+            },1500)
           })
       }
 
@@ -113,6 +120,14 @@ const App = () => {
               setMessage(null)
               setMsgType(null)
             },1000)
+        }).catch(error => {
+          console.log(error.response.data)
+          setMsgType('error')
+          setMessage(JSON.stringify(error.response.data))
+          setTimeout(() => {
+            setMessage(null)
+            setMsgType(null)
+          },1500)
         })
       }
   }
