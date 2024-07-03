@@ -8,8 +8,5 @@ const blogSchema = mongoose.Schema({
     likes: Number
   })
 
-const Blog = mongoose.model('Blog', blogSchema)
-const mongoUrl = config.MONGODB_URI
-mongoose.connect(mongoUrl)
 
-module.exports = Blog
+module.exports = mongoose.model('Blog', blogSchema)
