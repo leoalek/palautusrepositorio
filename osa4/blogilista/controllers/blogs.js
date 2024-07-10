@@ -8,7 +8,7 @@ blogsRouter.get('/',async (request, response) => {
     response.json(blogs)
   })
 
-//this can be removed now
+
 const getTokenFrom = request => {
   const authorization = request.get('authorization')
   if (authorization && authorization.startsWith('Bearer ')){
@@ -52,7 +52,7 @@ blogsRouter.delete('/:id', async (request,response) =>{
   if(!blog){
     return response.status(404).json({error: 'blog not found'})
   }
-  if(blog.user.toString() === userid.toString()){
+  if(blog.user.toString() === userid._id.toString()){
     await Blog.findByIdAndDelete(request.params.id)
     response.status(204).end()
   }else{

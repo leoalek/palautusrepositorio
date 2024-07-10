@@ -12,7 +12,6 @@ const bcrypt = require('bcryptjs')
 const api = supertest(app)
 
 
-
 beforeEach(async() => {
     await Blog.deleteMany({})
 
@@ -53,6 +52,7 @@ describe('when token is needed',() =>{
     headers = login.body.token
   })
 
+  //works with authentication
   test("adding blog sucessfully", async () => {
     const users = await helper.usersInDb()
     const nBlog = {
@@ -79,7 +79,7 @@ describe('when token is needed',() =>{
       ))
   })
 
-  test('when likes are empty set likes to 0', async () => {
+  test('When adding, likes to 0 if empty', async () => {
     const users = await helper.usersInDb()
     const nBlog = {
       title: "TEST",
