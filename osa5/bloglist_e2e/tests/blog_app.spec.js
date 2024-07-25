@@ -89,7 +89,6 @@ describe('Blog app', () => {
 
           await blog.getByRole('button',{name:'show'}).click()
 
-
           page.on('dialog',  async (dialog) =>  {
             await dialog.accept()
           })
@@ -123,8 +122,6 @@ describe('Blog app', () => {
             await page.getByRole('button',{name:'show'}).nth(0).click()
           }
 
-          const initFirstBlog = page.locator('.blog').nth(0)
-
           await expect(page.getByText('likes: 0').nth(0)).toBeVisible()
           await expect(page.getByText('likes: 0').nth(1)).toBeVisible()
           await expect(page.getByText('likes: 0').nth(2)).toBeVisible()
@@ -133,13 +130,12 @@ describe('Blog app', () => {
           const movingBlog = page.locator('.blog').filter({hasText:'testTitle3'})
           await movingBlog.getByRole('button',{name:'like'}).click()
 
-
           const newFirstBlog = page.locator('.blog').nth(0)
 
           await page.waitForLoadState('networkidle')
           const newFirstBlogTitle = await newFirstBlog.textContent();
 
-          await expect(newFirstBlogTitle).toContain('testTitle3')
+          expect(newFirstBlogTitle).toContain('testTitle3')
         })
       })
     })

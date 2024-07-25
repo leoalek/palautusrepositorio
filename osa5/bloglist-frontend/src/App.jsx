@@ -90,7 +90,7 @@ const App = () => {
     try{
       const returnedBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(returnedBlog))
-      setMessage('blog added')
+      setMessage(`blog ${returnedBlog.title} by ${returnedBlog.author} added`)
       setClassName('success')
       blogFormRef.current.toggleVisibility()
       setTimeout(() => {

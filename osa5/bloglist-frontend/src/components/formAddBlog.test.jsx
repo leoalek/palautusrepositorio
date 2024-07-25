@@ -6,7 +6,7 @@ test('form has right data when submitted', async () => {
   const user = userEvent.setup()
   const createBlog = vi.fn()
 
-  const { container } = render(<FormAddBlog handleNewBlog={createBlog}/>)
+  render(<FormAddBlog handleNewBlog={createBlog}/>)
 
   const titleInput = screen.getByPlaceholderText('titleText')
   const authorInput = screen.getByPlaceholderText('authorText')

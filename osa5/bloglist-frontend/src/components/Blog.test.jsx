@@ -20,6 +20,8 @@ test('render blog title', () => {
 
   const basicElement = screen.getByTestId('blog-title')
   expect(basicElement).toBeDefined()
+
+  //extra info hidden
   const extendElement = screen.queryByTestId('blog-info')
   expect(extendElement).toBeNull()
 })
@@ -42,7 +44,7 @@ test('clicking show button shows extended information', async () => {
   }
 
 
-  const { container } = render(<Blog blog={blog} user={loggeduser}/>)
+  render(<Blog blog={blog} user={loggeduser}/>)
 
   const user = userEvent.setup()
   const button = screen.getByText('show')
