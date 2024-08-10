@@ -1,35 +1,32 @@
-import { useState } from 'react'
+import { loggingIn } from '../reducers/loginReducer'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import Notification from './Notification'
 
-const Login = ({ doLogin }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+const Login = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault()
-    doLogin({ username, password })
-    setUsername('')
-    setPassword('')
+    const username = event.target.username.value
+    const password = event.target.password.value
+    event.target.username.value = ''
+    event.target.password.value = ''
+    dispatch(loggingIn({ username, password }))
+    navigate('/')
   }
 
   return (
     <form onSubmit={handleLogin}>
+      <Notification />
       <label>
         Username:
-        <input
-          type="text"
-          data-testid="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <input type="text" data-testid="username" name="username" />
       </label>
       <label>
         Password:
-        <input
-          type="password"
-          value={password}
-          data-testid="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <input type="password" data-testid="password" name="password" />
       </label>
       <input type="submit" value="Login" />
     </form>

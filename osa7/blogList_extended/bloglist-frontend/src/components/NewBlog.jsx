@@ -1,28 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import { newBlog } from '../reducers/blogReducer'
+import { setNotification as notify } from '../reducers/notificationReducer'
 
-const NewBlog = ({ doCreate }) => {
-  const [title, setTitle] = useState('')
-  const [url, setUrl] = useState('')
-  const [author, setAuthor] = useState('')
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setAuthor(event.target.value)
-  }
+const NewBlog = ({ toggleVisibility }) => {
+  const dispatch = useDispatch()
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    doCreate({ title, url, author })
-    setAuthor('')
-    setTitle('')
-    setUrl('')
+    const title = event.target.title.value
+    const url = event.target.url.value
+    const author = event.target.author.value
+
+    event.target.title.value = ''
+    event.target.url.value = ''
+    event.target.author.value = ''
+
+    toggleVisibility()
+
+    dispatch(newBlog({ title, url, author }))
+    dispatch(notify(`Blog created: ${title}, ${author}`))
   }
 
   return (
@@ -31,30 +28,15 @@ const NewBlog = ({ doCreate }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Title:</label>
-          <input
-            type="text"
-            data-testid="title"
-            value={title}
-            onChange={handleTitleChange}
-          />
+          <input type="text" data-testid="title" name="title" />
         </div>
         <div>
           <label>URL:</label>
-          <input
-            type="text"
-            data-testid="url"
-            value={url}
-            onChange={handleUrlChange}
-          />
+          <input type="text" data-testid="url" name="url" />
         </div>
         <div>
           <label>Author:</label>
-          <input
-            type="text"
-            data-testid="author"
-            value={author}
-            onChange={handleAuthorChange}
-          />
+          <input type="text" data-testid="author" name="author" />
         </div>
         <button type="submit">Create</button>
       </form>

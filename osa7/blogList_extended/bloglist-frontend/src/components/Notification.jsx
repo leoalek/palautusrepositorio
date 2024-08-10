@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux'
 
-const Notification = ({ notification }) => {
-  if (!notification) {
+const Notification = () => {
+  const content = useSelector((state) => state.notification)
+
+  if (!content) {
     return null
   }
-
-  const { message, type } = notification
+  const message = content.message
+  const type = content.type
+  console.log(type)
 
   const style = {
     backgroundColor: 'lightgrey',
