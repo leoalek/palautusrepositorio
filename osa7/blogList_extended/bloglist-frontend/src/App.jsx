@@ -5,9 +5,9 @@ import BlogInfo from './components/BlogInfo'
 import Login from './components/Login'
 import Notification from './components/Notification'
 import Navigator from './components/Navigator'
-import Users from './components/Users'
+import UsersPage from './components/UsersPage'
 import Allblogs from './components/Allblogs'
-import User from './components/User'
+import UserPage from './components/UserPage'
 
 //initial blogs
 import { initialize as initBlogs } from './reducers/blogReducer'
@@ -15,20 +15,17 @@ import { initialize as initBlogs } from './reducers/blogReducer'
 //initial users
 import { initialize as initUsers } from './reducers/userReducer'
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useMatch
-} from 'react-router-dom'
+import { Routes, Route, useMatch } from 'react-router-dom'
+
+import { Container } from 'react-bootstrap'
+
+import './index.css'
 
 const App = () => {
   const loggedUser = useSelector((state) => state.login)
   const users = useSelector((state) => state.users)
   const blogs = useSelector((state) => state.blogs)
   const dispatch = useDispatch()
-
-  console.log(users)
 
   let match = useMatch('/users/:id')
   const user = match
@@ -56,18 +53,19 @@ const App = () => {
   }
 
   return (
-    <div>
-      <h2>blogs</h2>
-      <Notification />
-      <Navigator />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/:id" element={<User user={user} />} />
-        <Route path="/" element={loggedUser ? <Allblogs /> : <Login />} />
-        <Route path="/blogs/:id" element={<BlogInfo blog={blog} />} />
-      </Routes>
-    </div>
+    <Container>
+      <div>
+        <Notification />
+        <Navigator />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={loggedUser ? <Allblogs /> : <Login />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/users/:id" element={<UserPage user={user} />} />
+          <Route path="/blogs/:id" element={<BlogInfo blog={blog} />} />
+        </Routes>
+      </div>
+    </Container>
   )
 }
 

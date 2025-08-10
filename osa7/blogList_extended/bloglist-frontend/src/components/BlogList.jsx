@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Blog from '../components/Blog'
 import { setNotification as notify } from '../reducers/notificationReducer'
-import { removeBlog, likeBlog } from '../reducers/blogReducer'
+import { deleteBlog, likeBlog } from '../reducers/blogReducer'
+import { Table } from 'react-bootstrap'
 
 const BlogList = () => {
   const dispatch = useDispatch()
@@ -11,19 +12,22 @@ const BlogList = () => {
 
   const handleDelete = async (blog) => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      dispatch(removeBlog(blog))
-      dispatch(notify(`Blog ${blog.title}, by ${blog.author} removed`))
+      dispatch(deleteBlog(blog))
     }
   }
 
   return (
     <div>
-      {blogs
-        .slice()
-        .sort(byLikes)
-        .map((blog) => (
-          <Blog key={blog.id} blog={blog} handleDelete={handleDelete} />
-        ))}
+      <Table striped>
+        <tbody>
+          {blogs
+            .slice()
+            .sort(byLikes)
+            .map((blog) => (
+              <Blog key={blog.id} blog={blog} handleDelete={handleDelete} />
+            ))}
+        </tbody>
+      </Table>
     </div>
   )
 }

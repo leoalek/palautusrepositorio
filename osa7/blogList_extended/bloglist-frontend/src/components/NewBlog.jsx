@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { newBlog } from '../reducers/blogReducer'
 import { setNotification as notify } from '../reducers/notificationReducer'
 
+import { Form, Button } from 'react-bootstrap'
+
 const NewBlog = ({ toggleVisibility }) => {
   const dispatch = useDispatch()
 
@@ -19,27 +21,48 @@ const NewBlog = ({ toggleVisibility }) => {
     toggleVisibility()
 
     dispatch(newBlog({ title, url, author }))
-    dispatch(notify(`Blog created: ${title}, ${author}`))
   }
 
   return (
     <div>
       <h2>Create a New Blog</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title:</label>
-          <input type="text" data-testid="title" name="title" />
-        </div>
-        <div>
-          <label>URL:</label>
-          <input type="text" data-testid="url" name="url" />
-        </div>
-        <div>
-          <label>Author:</label>
-          <input type="text" data-testid="author" name="author" />
-        </div>
-        <button type="submit">Create</button>
-      </form>
+      <Form onSubmit={handleSubmit} className="w-50">
+        <Form.Group>
+          <Form.Label>Title:</Form.Label>
+          <Form.Control
+            type="text"
+            data-testid="title"
+            name="title"
+            style={{ backgroundColor: 'lightgray', border: '2px solid black' }}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>URL:</Form.Label>
+          <Form.Control
+            type="text"
+            data-testid="url"
+            name="url"
+            style={{ backgroundColor: 'lightgray', border: '2px solid black' }}
+          />
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label>Author:</Form.Label>
+          <Form.Control
+            type="text"
+            data-testid="author"
+            name="author"
+            style={{ backgroundColor: 'lightgray', border: '2px solid black' }}
+          />
+        </Form.Group>
+        <Button
+          type="submit"
+          className="mr-2"
+          style={{ border: '2px solid black' }}
+        >
+          Create
+        </Button>
+      </Form>
     </div>
   )
 }

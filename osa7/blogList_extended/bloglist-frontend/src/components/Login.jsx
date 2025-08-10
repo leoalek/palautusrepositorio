@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Notification from './Notification'
 
+import { Button, Form } from 'react-bootstrap'
+
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -18,18 +20,19 @@ const Login = () => {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <Form onSubmit={handleLogin} className="w-25">
       <Notification />
-      <label>
-        Username:
-        <input type="text" data-testid="username" name="username" />
-      </label>
-      <label>
-        Password:
-        <input type="password" data-testid="password" name="password" />
-      </label>
-      <input type="submit" value="Login" />
-    </form>
+      <Form.Group className="mb-3">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control type="text" data-testid="username" name="username" />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control type="password" data-testid="password" name="password" />
+      </Form.Group>
+
+      <Button type="submit">login</Button>
+    </Form>
   )
 }
 

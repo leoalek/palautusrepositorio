@@ -23,6 +23,8 @@ const create = async (newObject) => {
 }
 
 const remove = async (id) => {
+  console.log('removing...')
+  console.log(id)
   const response = await axios.delete(`${baseUrl}/${id}`, getConfit())
   return response.data
 }

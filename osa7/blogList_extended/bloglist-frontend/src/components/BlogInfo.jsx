@@ -1,17 +1,25 @@
 import { useDispatch } from 'react-redux'
-import { likeBlog } from '../reducers/blogReducer'
-import { setNotification as notify } from '../reducers/notificationReducer'
+import { deleteBlog, likeBlog } from '../reducers/blogReducer'
+import { initialize } from '../reducers/commentReducer'
+import { useEffect } from 'react'
+import Comments from './Comments'
+import { Button } from 'react-bootstrap'
 
 const BlogInfo = ({ blog }) => {
-  console.log(blog)
+  //console.log(blog)
   const dispatch = useDispatch()
 
-  const nameOfUser = blog.user ? blog.user.name : 'anonymous'
+  const nameOfUser = blog && blog.user ? blog.user.name : 'anonymous'
+
+  useEffect(() => {
+    if (blog && blog?.id) {
+      dispatch(initialize(blog.id))
+    }
+  }, [dispatch, blog])
 
   const handleVote = async (blog) => {
-    console.log('updating', blog)
+    //console.log('updating', blog)
     dispatch(likeBlog(blog))
-    dispatch(notify(`You liked ${blog.title} by ${blog.author}`))
   }
 
   if (!blog) {
@@ -24,11 +32,11 @@ const BlogInfo = ({ blog }) => {
       </h2>
       <p>{blog.url}</p>
       <p>
-        {' '}
-        likes: {blog.likes}{' '}
-        <button onClick={() => handleVote(blog)}>like</button>
+        likes: <span className="me-3">{blog.likes}</span>
+        <Button onClick={() => handleVote(blog)}>like</Button>
       </p>
       <p>created by {nameOfUser}</p>
+      <Comments blogId={blog.id} />
     </div>
   )
 }

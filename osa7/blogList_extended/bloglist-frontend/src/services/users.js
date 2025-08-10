@@ -2,8 +2,15 @@ import axios from 'axios'
 
 const baseUrl = '/api/users'
 
-const getUsers = () => {
-  return axios.get(baseUrl).then((response) => response.data)
+const getUsers = async () => {
+  const response = await axios.get(baseUrl)
+  return response.data
 }
 
-export default { getUsers }
+const getOneUser = async (id) => {
+  console.log(id)
+  const response = await axios.get(`${baseUrl}/${id}`)
+  return response.data
+}
+
+export default { getUsers, getOneUser }

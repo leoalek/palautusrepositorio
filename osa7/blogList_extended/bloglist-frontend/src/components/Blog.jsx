@@ -4,10 +4,7 @@ import storage from '../services/storage'
 import { Link } from 'react-router-dom'
 
 const Blog = ({ blog, handleDelete }) => {
-  const [visible, setVisible] = useState(false)
-  console.log('blog', blog)
-
-  const nameOfUser = blog.user ? blog.user.name : 'anonymous'
+  //const nameOfUser = blog.user ? blog.user.name : 'anonymous'
 
   const style = {
     border: 'solid',
@@ -17,15 +14,19 @@ const Blog = ({ blog, handleDelete }) => {
   }
 
   const canRemove = blog.user ? blog.user.username === storage.me() : true
-
-  //console.log(blog.user, storage.me(), canRemove)
-
   return (
-    <div style={style} className="blog">
-      <Link to={`/blogs/${blog.id}`}>
-        {blog.title} by {blog.author}
-      </Link>
-    </div>
+    <tr>
+      <td>
+        <Link to={`/blogs/${blog.id}`}>
+          {blog.title} by {blog.author}
+        </Link>
+      </td>
+      <td style={{ textAlign: 'right' }}>
+        {canRemove && (
+          <button onClick={() => handleDelete(blog)}>delete</button>
+        )}
+      </td>
+    </tr>
   )
 }
 

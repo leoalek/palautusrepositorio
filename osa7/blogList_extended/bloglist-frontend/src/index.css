@@ -19,3 +19,14 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
+button,
+.btn {
+  border: 2px solid black;
+}
+
+input,
+.form-control {
+  border: 2px solid black !important;
+  background-color: lightgray;
+}
